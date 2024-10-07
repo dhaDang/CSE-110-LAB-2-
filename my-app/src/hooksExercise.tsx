@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ThemeContext, themes } from "./themeContext";
 
 // Wrapper component to provide context
@@ -29,11 +29,22 @@ export function ClickCounter() {
  useEffect(() => {
    document.title = `You clicked ${count} times`;
  }, [count]);
-
+ const theme = useContext(ThemeContext);
  return (
-   <div>
-     <p>Clicks: {count}</p>
-     <button onClick={handleClick}>Click me!</button>
-   </div>
- );
+    <div
+      style={{
+        background: theme.background,
+        color: theme.foreground,
+        padding: "20px",
+      }}
+    >
+      <p>You clicked {count} times </p>
+      <button
+        onClick={() => setCount(count + 1)}
+        style={{ background: theme.foreground, color: theme.background }}
+      >
+        Click me
+      </button>
+    </div>
+  );
 }
